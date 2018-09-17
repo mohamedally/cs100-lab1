@@ -10,10 +10,17 @@ a {
 
 table {
     border-collapse: collapse;
+    margin-top: 4%
 }
 
 table, th, td {
     border: 1px solid black;
+}
+
+table#objects {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 th, td {
@@ -32,4 +39,18 @@ img {
 
 h2 {
 	text-align: center;
+}
+
+button {
+    float: right;
+    font-size: 12px;
+    color: white;
+    background-color: crimson;
+    border: none;
+    margin-right: 10%;
+    border-radius: 4px;
+}
+
+a{
+    color: crimson;
 }
