@@ -24,15 +24,10 @@ th, td {
     width: 80px;
 }
 
-p{
-
-}
 
 img {
-	align:left;
 	border: 1px solid #ddd;
     border-radius: 4px
-    padding:24px;
 }
 
 h2 {

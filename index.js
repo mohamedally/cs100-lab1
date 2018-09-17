@@ -57,13 +57,27 @@ function showObjectsTable(id) {
           <td> <a href="#${object.objectnumber}" onclick="showDetails(${object.objectnumber})"> ${object.title} </a></td>
           <td>`
 
-          object.people.forEach(person => {
-            tableHTML += `<p> ${person.name} </p>`
-          });
+          if (object.people) {
+            object.people.forEach(person => {
+              tableHTML += `<p> ${person.name} </p>`
+            });
+          }
+          else
+          {
+            tableHTML += `<p> No contributors reported </p>`;
+          }
           
-          tableHTML += `</td>
-          <td><img src = ${object.primaryimageurl} style="width:96px;height:96px;"></td>
-          <td><a href=${object.url}>${object.url}</a></td>
+          tableHTML += `</td>`
+          if (object.primaryimageurl)
+          {
+            tableHTML += `<td><img src = ${object.primaryimageurl} style="width:96px;height:96px;"></td>`
+          }
+          else
+          {
+            tableHTML += `<td><p> No Image </p></td>`
+          }
+          
+          tableHTML += `<td><a href=${object.url}>${object.url}</a></td>
           </tr>`
       // Add the table to the html by seeking id objects
       document.querySelector('#objects').innerHTML += tableHTML;
@@ -88,12 +102,21 @@ function showDetails (objectnumber) {
   .then(response => response.json())
   .then(data => {
     let item = data.records[0];
-    console.log(item);
     //data.records.forEach(item => { 
     let description = `
     <div id="most-recent">
-      <h2> ${item.title}</h2>
-      <img src = ${item.primaryimageurl} style="width:384x;height:384px;">
+      <h2> ${item.title}</h2>`
+      
+      if(item.primaryimageurl)
+      {
+        description += `<img src = ${item.primaryimageurl} style="width:384x;height:384px;">`
+      }
+      else
+      {
+        description += `<p> <strong> NO IMAGE AVAILABLE </strong> </p>`
+      }
+      description += `
+      
       <p> <strong> Accession: </strong> ${item.accessionyear}</p>
       <p> <strong> Provenance: </strong> ${item.provenance}</p>
       <p> <strong> Descripton: </strong> ${item.description}</p>
@@ -118,10 +141,4 @@ function goBack() {
 
 function backToGalleries() {
   window.location.replace("/index.html");
-  // if(document.querySelector("#objects"))
-  // {
-  //   document.querySelector("#objects").remove();
-  // }
-  // document.querySelector("#all-objects").style.display = "none";
-  // document.querySelector("#all-galleries").style.display = "block";
 }
