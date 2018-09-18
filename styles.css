@@ -33,8 +33,15 @@ th, td {
 
 
 img {
-	border: 1px solid #ddd;
-    border-radius: 4px
+    display: block;
+
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    width:50%;
+    height:auto;
+    
 }
 
 h2 {
@@ -53,4 +60,10 @@ button {
 
 a{
     color: crimson;
+}
+
+.descriptionText
+{
+    margin-left:20%;
+    margin-right: 20%;
 }

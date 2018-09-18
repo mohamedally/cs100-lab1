@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Function that dsiplays galleries on the screen
 function showGalleries(url) {
-
 // Fetch the galleries from API then convert result into JSON while waiting where appropiate
   fetch(url)
   .then(response => response.json())
@@ -21,7 +20,7 @@ function showGalleries(url) {
       // Pop up alert and do nothing if gallery entry has nothing inside
       if (gallery.objectcount == 0)
       {
-        html_entry += `<a href="#${gallery.id}" onclick="nothing_here()">`
+        html_entry += `<a href="#${gallery.id}" onclick="noObjects()">`
       } else
       {
         // If object count is non-zero then call showObjectsTable
@@ -70,7 +69,7 @@ function showObjectsTable(id) {
           tableHTML += `</td>`
           if (object.primaryimageurl)
           {
-            tableHTML += `<td><img src = ${object.primaryimageurl} style="width:96px;height:96px;"></td>`
+            tableHTML += `<td><img src = ${object.primaryimageurl} style="width:192px;height:192px;"></td>`
           }
           else
           {
@@ -109,36 +108,44 @@ function showDetails (objectnumber) {
       
       if(item.primaryimageurl)
       {
-        description += `<img src = ${item.primaryimageurl} style="width:384x;height:384px;">`
+        description += `<img src = ${item.primaryimageurl}>`
       }
       else
       {
-        description += `<p> <strong> NO IMAGE AVAILABLE </strong> </p>`
+        description += `<p class = "descriptonText"> <strong> NO IMAGE AVAILABLE </strong>`
       }
       description += `
       
-      <p> <strong> Accession: </strong> ${item.accessionyear}</p>
-      <p> <strong> Provenance: </strong> ${item.provenance}</p>
-      <p> <strong> Descripton: </strong> ${item.description}</p>
+      <p class = "descriptionText"> <strong> Accession: </strong> ${item.accessionyear}</p>
+      <p class = "descriptionText"> <strong> Provenance: </strong> ${item.provenance}</p>
+      <p class = "descriptionText"> <strong> Descripton: </strong> ${item.description}</p>
       </div>`
       document.querySelector("#object-details").innerHTML += description;
     });
 }
 
-function nothing_here() {
-  alert("No content");
+// Show alert if gallery has no objects
+function noObjects() {
+  swal({
+    title: "EMPTY GALLERY",
+    text:"Sorry, the gallery has no objects",
+    icon:"info",
+  });
 }
 
+// Go back from object details to list of object in a gallery
 function goBack() {
   if (document.querySelector("#most-recent"))
   {
     document.querySelector("#most-recent").remove();
   }
+  window.history.back();
   document.querySelector("#all-objects").style.display = "block";
   document.querySelector("#object-details").style.display = "none";
   
 }
 
+// Go back to list of galleries from object table
 function backToGalleries() {
   window.location.replace("/index.html");
 }
